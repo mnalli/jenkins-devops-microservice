@@ -1,5 +1,6 @@
 pipeline {
 	agent any
+
 	stages {
 		stage("Build") {
 			steps {
@@ -18,6 +19,19 @@ pipeline {
 				echo "====++++executing Integration Test++++===="
 				echo "Integration Test"
 			}
+		}
+	}
+
+	post {
+		// after all stages are executed
+		always {
+			echo "Always"
+		}
+		success {
+			echo "Success"
+		}
+		failure {
+			echo "failure"
 		}
 	}
 }
