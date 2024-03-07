@@ -31,7 +31,15 @@ pipeline {
 			echo "Success"
 		}
 		failure {
-			echo "failure"
+			echo "Failure"
+		}
+		unstable {
+			// some test has failed
+			echo "Unstable"
+		}
+		changed {
+			// the build status has changed
+			echo "Changed"
 		}
 	}
 }
