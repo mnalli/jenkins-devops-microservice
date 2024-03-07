@@ -9,7 +9,7 @@ pipeline {
 	}
 
 	stages {
-		stage("Build") {
+		stage("Checkout") {
 			steps {
 				echo "====++++executing Build++++===="
 				sh "mvn --version"
@@ -22,16 +22,19 @@ pipeline {
 				echo "BUILD_TAG: $env.BUILD_TAG"
 			}
 		}
+		stage("Build") {
+			steps {
+				sh "mvn clean compile"
+			}
+		}
 		stage("Test") {
 			steps {
-				echo "====++++executing Test++++===="
-				echo "Test"
+				sh "mvn test"
 			}
 		}
 		stage("Integration Test") {
 			steps {
-				echo "====++++executing Integration Test++++===="
-				echo "Integration Test"
+				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
 	}
